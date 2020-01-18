@@ -1,0 +1,10 @@
+<div class="container">
+    <div class="row vending-machine">
+        <div class="col-9">
+            <app-can-component class="col-3" *ngClass="{active: can.amount>0}" *ngFor="let can of cans" (beChosed)="onChoose" [successfulPayment]="$successfulPayment.asObservable()"></app-can-component>
+        </div>
+        <div class="col-3">
+            <app-control-panel-component [can]="selectedCan" (paymentDone)="ejectCan"></app-control-panel-component>
+        </div>
+    </div>
+</div>

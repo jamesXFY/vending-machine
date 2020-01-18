@@ -1,0 +1,16 @@
+<div class="row">display some message</div>
+<div class="row">
+    <div class="col-12">
+        <app-cash-component [disabled]="cashInputDisabled" (paymentProceeded)="onSubmit"></app-cash-component>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        <app-credit-component [disabled]="cashInputDisabled" (paymentProceeded)="onSubmit"></app-credit-component>
+    </div>
+</div>
+<div class="row">
+    <div class="col-12">
+        changes
+    </div>
+</div>
