@@ -16,10 +16,10 @@
   </div>
 
   <div class="row">
-      <div class="col-6" (click)='restoreCans()'>
+      <div class="col-md-6 col-12 button" (click)='restoreCans()'>
         Restore
       </div>
-      <div class="col-6" (click)='finishRestore()'>
+      <div class="col-md-6 col-12 text-no-wrap button" (click)='finishRestore()'>
         Finish Restore
       </div>
     </div>
@@ -27,24 +27,26 @@
 
 <ng-template #general>
   <div class="row">
-    <div class="col-6">
+    <div class="col-md-6 col-12 text-no-wrap">
       <div>Sold Cans In Total :</div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-12">
       <div>{{ soldedCansTotal }}</div>
     </div>
-
-    <div class="col-6">
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-12 text-no-wrap">
       <div>Cash Paid:</div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-12">
       <div>{{ cashInTotal | currency }}</div>
     </div>
-
-    <div class="col-6">
+  </div>
+  <div class="row">
+    <div class="col-md-6 col-12 text-no-wrap">
       <div>Credit Paid:</div>
     </div>
-    <div class="col-6">
+    <div class="col-md-6 col-12">
       <div>{{ creditInTotal | currency }}</div>
     </div>
   </div>
@@ -53,24 +55,26 @@
 <ng-template #processing>
   <div class="row">
     <div class="row">
-      <div class="col-6">
+      <div class="col-md-6 col-12 text-no-wrap">
         <div>Can Selected :</div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-12">
         <div>{{ can.type }}</div>
       </div>
-
-      <div class="col-6">
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-12 text-no-wrap">
         <div>Price:</div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-12">
         <div>{{ can.price | currency }}</div>
       </div>
-
-      <div class="col-6">
+    </div>
+    <div class="row">
+      <div class="col-md-6 col-12">
         <div>received:</div>
       </div>
-      <div class="col-6">
+      <div class="col-md-6 col-12">
         <div>{{ receivedCash | currency }}</div>
       </div>
     </div>

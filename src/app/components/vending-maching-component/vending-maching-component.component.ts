@@ -1,11 +1,12 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation } from '@angular/core';
 import { Can } from '../can-component/can';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
 @Component({
   selector: 'app-vending-maching-component',
   templateUrl: './vending-maching-component.component.html',
-  styleUrls: ['./vending-maching-component.component.scss']
+  styleUrls: ['./vending-maching-component.component.scss'],
+  encapsulation: ViewEncapsulation.Emulated
 })
 export class VendingMachingComponentComponent implements OnInit {
   public selectedCan: Can;
@@ -20,7 +21,7 @@ export class VendingMachingComponentComponent implements OnInit {
       name: 'test',
       price: 12.33,
       amount: 20,
-      icon: 'beveage.png'
+      icon: 'icon (1).svg'
     };
 
     const can2: Can = {
@@ -28,7 +29,7 @@ export class VendingMachingComponentComponent implements OnInit {
       name: 'test1',
       price: 12.33,
       amount: 10,
-      icon: 'beveage1.png'
+      icon: 'icon (2).svg'
     };
 
     const can3: Can = {
@@ -36,7 +37,7 @@ export class VendingMachingComponentComponent implements OnInit {
       name: 'test3',
       price: 12.33,
       amount: 10,
-      icon: 'beveage1.png'
+      icon: 'icon (3).svg'
     };
 
     const can4: Can = {
@@ -44,13 +45,22 @@ export class VendingMachingComponentComponent implements OnInit {
       name: 'test4',
       price: 12.33,
       amount: 10,
-      icon: 'beveage1.png'
+      icon: 'icon (4).svg'
+    };
+
+    const can5: Can = {
+      type: 'test4',
+      name: 'test4',
+      price: 12.33,
+      amount: 10,
+      icon: 'icon (5).svg'
     };
 
     this.cans.push(can1);
     this.cans.push(can2);
     this.cans.push(can3);
     this.cans.push(can4);
+    this.cans.push(can5);
    }
 
   ngOnInit() {

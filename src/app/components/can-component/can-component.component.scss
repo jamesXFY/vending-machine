@@ -6,3 +6,27 @@ img{
 .visible{
     display: block
 }
+
+.beveage-icon{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.beveage-desc{
+    display: block;
+}
+
+.left-align{
+    float: left;
+}
+
+.right-align{
+    float: right;
+}
+
+.amount-input{
+    width: 60%;
+    display: flex;
+    justify-content: center;
+}

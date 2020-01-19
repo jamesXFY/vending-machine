@@ -50,8 +50,10 @@ export class CanComponentComponent implements OnInit, AfterViewInit {
   }
 
   addCans(event) {
-    if (event.target.value <= 0) {
+    const amount = parseInt(event.target.value, 10);
+    if (isNaN(amount) || event.target.value <= 0) {
       this.can.amount = 0;
+      return;
     }
     this.can.amount = event.target.value;
   }
