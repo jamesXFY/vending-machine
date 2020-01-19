@@ -1,28 +1,54 @@
-<div class="container">
-  <ng-container *ngTemplateOutlet="paymentMethodActive ? processing  : general"></ng-container>
+<div class="container message-panel">
+  <ng-container
+    *ngTemplateOutlet="paymentMethodActive ? processing : general"
+  ></ng-container>
+</div>
+<div class="container payment-panel">
   <div class="row">
     <div class="col-12">
-        <input type="radio" name="payment" id="cash" value="cashPayment" (click)="chosePaymentMethod($event)" checked>cash
-        <input type="radio" name="payment" id="credit" value="creditPayment" (click)="chosePaymentMethod($event)">credit
+      <input #cashPaymentMethod
+        type="radio"
+        name="payment"
+        id="cash"
+        value="cashPayment"
+        (click)="chosePaymentMethod($event)"
+        checked
+      />cash
+      <input
+        type="radio"
+        name="payment"
+        id="credit"
+        value="creditPayment"
+        (click)="chosePaymentMethod($event)"
+      />credit
     </div>
     <div class="col-12">
-        <ng-container *ngTemplateOutlet="getPaymentMethod() === 'cashPayment' ? cashPayment : creditPayment"></ng-container>
+      <ng-container
+        *ngTemplateOutlet="
+          getPaymentMethod() === 'cashPayment' ? cashPayment : creditPayment
+        "
+      ></ng-container>
     </div>
   </div>
+</div>
+<div class="container action-panel">
   <div class="row">
-    <div class="col-12">
-      {{ cashChange }}
+    <div class="col-md-6 col-12 text-no-wrap">
+      <div>change cash :</div>
+    </div>
+    <div class="col-md-6 col-12">
+      <div>{{ cashChange }}</div>
     </div>
   </div>
 
   <div class="row">
-      <div class="col-md-6 col-12 button" (click)='restoreCans()'>
-        Restore
-      </div>
-      <div class="col-md-6 col-12 text-no-wrap button" (click)='finishRestore()'>
-        Finish Restore
-      </div>
+    <div class="col-md-6 col-12 button btn-warning" (click)="restoreCans()">
+      Restore
     </div>
+    <div class="col-md-6 col-12 text-no-wrap button btn-info" (click)="finishRestore()">
+      Finish Restore
+    </div>
+  </div>
 </div>
 
 <ng-template #general>
@@ -53,7 +79,6 @@
 </ng-template>
 
 <ng-template #processing>
-  <div class="row">
     <div class="row">
       <div class="col-md-6 col-12 text-no-wrap">
         <div>Can Selected :</div>
@@ -78,23 +103,18 @@
         <div>{{ receivedCash | currency }}</div>
       </div>
     </div>
-  </div>
-</ng-template>
-
-<ng-template #paymentMethod>
-    
 </ng-template>
 
 <ng-template #cashPayment>
-    <app-cash-component
-        [disabled]="!paymentMethodActive"
-        (paymentProceeded)="onCashSubmit($event)"
-      ></app-cash-component>
+  <app-cash-component
+    [disabled]="!paymentMethodActive"
+    (paymentProceeded)="onCashSubmit($event)"
+  ></app-cash-component>
 </ng-template>
 
 <ng-template #creditPayment>
-    <app-credit-component
-        [disabled]="!paymentMethodActive"
-        (paymentProceeded)="onCreditSubmit()"
-      ></app-credit-component>
+  <app-credit-component
+    [disabled]="!paymentMethodActive"
+    (paymentProceeded)="onCreditSubmit()"
+  ></app-credit-component>
 </ng-template>

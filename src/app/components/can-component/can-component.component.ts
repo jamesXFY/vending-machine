@@ -8,10 +8,6 @@ import { Can } from './can';
 })
 export class CanComponentComponent implements OnInit, AfterViewInit {
 
-  get Amount(): number {
-    return this.can.amount;
-  }
-
   @Input() can: Can;
   @Input() $successfulPayment: Observable<Can>;
   @Input() $restoreCansSubject: Observable<string>;
@@ -21,21 +17,23 @@ export class CanComponentComponent implements OnInit, AfterViewInit {
   @ViewChild('amountInput', {static: true}) restoreInput: ElementRef;
 
 
-  private clickAble = true;
+  public clickAble = true;
 
 
   constructor(private render: Renderer2) { }
 
   ngOnInit() {
     this.$successfulPayment.subscribe((can: Can) => {
-      if (can === this.can) {
+      if (can.type === this.can.type && can.name === this.can.name && this.can.amount > 0) {
         this.can.amount = this.can.amount - 1;
+        if (this.can.amount <= 0) {
+          this.clickAble = false;
+        }
       }
     });
   }
 
   ngAfterViewInit() {
-    console.log(this.restoreInput);
     this.$restoreCansSubject.subscribe((restore: string) => {
       if (restore === 'restore') {
         this.restoreCans();
@@ -46,6 +44,9 @@ export class CanComponentComponent implements OnInit, AfterViewInit {
 }
 
   onClick() {
+    if (!this.clickAble) {
+      return;
+    }
     this.beChosed.emit(this.can);
   }
 
@@ -55,6 +56,7 @@ export class CanComponentComponent implements OnInit, AfterViewInit {
       this.can.amount = 0;
       return;
     }
+    this.clickAble = true;
     this.can.amount = event.target.value;
   }
 
@@ -65,7 +67,9 @@ export class CanComponentComponent implements OnInit, AfterViewInit {
   }
 
   finishRestore() {
-    this.clickAble = true;
+    if (this.can.amount > 0) {
+      this.clickAble = true;
+    }
     this.render.removeClass(this.restoreInput.nativeElement, 'visible');
     this.render.addClass(this.restoreInput.nativeElement, 'invisible');
   }

@@ -1,26 +1,30 @@
 <div class="container">
   <div class="row vending-machine">
     <div class="col-7">
-      <div class="container">
+      <div class="container items-container">
         <div class="row">
-            <div class="col-sm-3" *ngFor="let can of cans">
-                    <app-can-component
-                    [ngClass]="{'active': can.amount > 0 }"
-                    [can]="can"
-                    (beChosed)="onChoose($event)"
-                    [$successfulPayment]="$successfulPayment.asObservable()"
-                    [$restoreCansSubject]="$restoreCansSubject.asObservable()"
-                  ></app-can-component>
-            </div>
+          <div class="col-sm-4" *ngFor="let can of cans">
+            <app-can-component
+              [ngClass]="{ active: can.amount > 0 }"
+              [can]="can"
+              (beChosed)="onChoose($event)"
+              [$successfulPayment]="$successfulPayment.asObservable()"
+              [$restoreCansSubject]="$restoreCansSubject.asObservable()"
+            ></app-can-component>
+          </div>
         </div>
       </div>
     </div>
     <div class="col-5">
-      <app-control-panel-component
-        [can]="selectedCan"
-        [$restoreCansSubject]="$restoreCansSubject"
-        (paymentDone)="ejectCan($event)"
-      ></app-control-panel-component>
+      <div class="container control-container">
+        <div class="row">
+          <app-control-panel-component
+            [can]="selectedCan"
+            [$restoreCansSubject]="$restoreCansSubject"
+            (paymentDone)="ejectCan()"
+          ></app-control-panel-component>
+        </div>
+      </div>
     </div>
   </div>
 </div>

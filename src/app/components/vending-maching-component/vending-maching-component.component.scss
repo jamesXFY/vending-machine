@@ -1,0 +1,14 @@
+.items-container{
+    background-color: gray;
+    height: 100%;
+    min-height: 340px;
+}
+
+.control-container{
+    height: 100%;
+    min-height: 340px;
+    *{
+        height: 100%;
+        width: 100%
+    }
+}

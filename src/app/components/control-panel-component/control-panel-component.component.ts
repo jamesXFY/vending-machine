@@ -9,7 +9,8 @@ import {
   ViewChild,
   ElementRef,
   ViewChildren,
-  QueryList
+  QueryList,
+  Renderer2
 } from '@angular/core';
 import { Can } from '../can-component/can';
 import { Subject } from 'rxjs';
@@ -29,14 +30,16 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
 
   public paymentMethodActive = false;
 
-  public chosedPayment = '';
+  public chosedPayment = 'cashPayment';
 
   @Input() can: Can;
   @Input() $restoreCansSubject: Subject<string>;
 
   @Output() paymentDone: EventEmitter<Can> = new EventEmitter();
 
-  constructor() {}
+  @ViewChild('cashPaymentMethod', {static: false}) cashPaymentMethod: ElementRef;
+
+  constructor(private render: Renderer2) {}
 
   ngOnInit() {}
 
@@ -44,7 +47,6 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
     if (changes.hasOwnProperty('can') && !changes.can.isFirstChange()) {
       this.cashChange = 0;
       this.paymentMethodActive = this.can.amount > 0;
-      console.log(this.paymentMethodActive);
     }
   }
 
@@ -68,12 +70,11 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
     this.soldedCansTotal = this.soldedCansTotal + 1;
     this.creditInTotal = this.creditInTotal + this.can.price;
     this.paymentMethodActive = false;
-    
+
     this.paymentDone.emit();
   }
 
   chosePaymentMethod($event) {
-    console.log($event.target.value);
     this.chosedPayment = $event.target.value;
   }
 
@@ -100,6 +101,5 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
     this.creditInTotal = 0;
     this.soldedCansTotal = 0;
     this.paymentMethodActive = false;
-    this.chosedPayment = '';
   }
 }

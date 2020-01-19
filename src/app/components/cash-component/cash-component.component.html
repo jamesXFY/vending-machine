@@ -2,8 +2,8 @@
     <div class = 'col-12'>only take $5, $10, $20, $100</div>
 </div>
 <div class="row">
-    <div class = 'col-3 priceOption' (click)="onClick(5)">$5</div>
-    <div class = 'col-3 priceOption' (click)="onClick(10)">$10</div>
-    <div class = 'col-3 priceOption' (click)="onClick(20)">$20</div>
-    <div class = 'col-3 priceOption' (click)="onClick(100)">$100</div>
+    <div #priceOption class = 'col-3 priceOption btn btn-success btn-xs' (click)="onClick(5)">$5</div>
+    <div #priceOption class = 'col-3 priceOption btn btn-success btn-xs' (click)="onClick(10)">$10</div>
+    <div #priceOption class = 'col-3 priceOption btn btn-success btn-xs' (click)="onClick(20)">$20</div>
+    <div #priceOption class = 'col-3 priceOption btn btn-success btn-xs' (click)="onClick(100)">$100</div>
 </div>

@@ -4,4 +4,21 @@
 
 .button{
     cursor: pointer;
+    margin: 3px 10px;
+    border-radius: 2px;
+}
+
+.message-panel{
+    background-color: beige;
+    height: 33%;
+}
+
+.payment-panel{
+    background-color: burlywood;
+    height: 33%;
+}
+
+.action-panel{
+    background-color: cadetblue;
+    height: 33%;
 }

@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewEncapsulation } from '@angular/core';
+import { Component, OnInit, ViewEncapsulation, ChangeDetectorRef } from '@angular/core';
 import { Can } from '../can-component/can';
 import { Observable, Subject, BehaviorSubject } from 'rxjs';
 
@@ -15,7 +15,7 @@ export class VendingMachingComponentComponent implements OnInit {
   public $successfulPayment: Subject<Can> = new Subject<Can>();
   public $restoreCansSubject: Subject<string> = new Subject<string>();
 
-  constructor() {
+  constructor(private changeDetector: ChangeDetectorRef) {
     const can1: Can = {
       type: 'test',
       name: 'test',
@@ -68,11 +68,11 @@ export class VendingMachingComponentComponent implements OnInit {
   }
 
   onChoose(can: Can) {
-    this.selectedCan = can;
+    this.selectedCan =  Object.assign({}, can);
+    this.changeDetector.detectChanges();
   }
 
-  ejectCan(can: Can) {
-    console.log(can.amount + 'vending');
-    this.$successfulPayment.next(can);
+  ejectCan() {
+    this.$successfulPayment.next(this.selectedCan);
   }
 }

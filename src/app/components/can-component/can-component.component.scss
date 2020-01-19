@@ -1,3 +1,7 @@
+.item-container{
+    margin:5px 5px;
+}
+
 img{
     width: 45px;
     height: 45px;
@@ -26,7 +30,9 @@ img{
 }
 
 .amount-input{
-    width: 60%;
+    input{
+        width: 60%;
+    }
     display: flex;
     justify-content: center;
 }
