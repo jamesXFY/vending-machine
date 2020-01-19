@@ -7,16 +7,19 @@ import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 })
 export class CreditComponentComponent implements OnInit {
 
-  @Input() disabled:boolean;
+  @Input() disabled: boolean;
 
-  @Output() paymentProceeded : EventEmitter<any> = new EventEmitter();
+  @Output() paymentProceeded: EventEmitter<any> = new EventEmitter();
 
   constructor() { }
 
   ngOnInit() {
   }
 
-  onSubmit(){
+  onSubmit() {
+    if (this.disabled) {
+      return;
+    }
     this.paymentProceeded.emit();
   }
 

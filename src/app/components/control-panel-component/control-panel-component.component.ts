@@ -10,28 +10,29 @@ import {
   ElementRef,
   ViewChildren,
   QueryList
-} from "@angular/core";
-import { Can } from "../can-component/can";
+} from '@angular/core';
+import { Can } from '../can-component/can';
+import { Subject } from 'rxjs';
 
 @Component({
-  selector: "app-control-panel-component",
-  templateUrl: "./control-panel-component.component.html",
-  styleUrls: ["./control-panel-component.component.scss"]
+  selector: 'app-control-panel-component',
+  templateUrl: './control-panel-component.component.html',
+  styleUrls: ['./control-panel-component.component.scss']
 })
 export class ControlPanelComponentComponent implements OnInit, OnChanges {
-  public cashChange: number = 0;
-  public receivedCash: number = 0;
+  public cashChange = 0;
+  public receivedCash = 0;
 
-  public cashInTotal: number = 0;
-  public creditInTotal: number = 0;
-  public soldedCansTotal: number = 0;
+  public cashInTotal = 0;
+  public creditInTotal = 0;
+  public soldedCansTotal = 0;
 
-  public cashInputDisabled: boolean = true;
-  public creditInputDisabled: boolean = true;
+  public paymentMethodActive = false;
 
-  public chosedPayment: string = "";
+  public chosedPayment = '';
 
   @Input() can: Can;
+  @Input() $restoreCansSubject: Subject<string>;
 
   @Output() paymentDone: EventEmitter<Can> = new EventEmitter();
 
@@ -40,22 +41,23 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
   ngOnInit() {}
 
   ngOnChanges(changes: SimpleChanges): void {
-    if (changes.hasOwnProperty("can") && !changes["can"].isFirstChange()) {
-      this.cashInputDisabled = this.can.amount <= 0;
-      this.creditInputDisabled = this.can.amount <= 0;
+    if (changes.hasOwnProperty('can') && !changes.can.isFirstChange()) {
+      this.cashChange = 0;
+      this.paymentMethodActive = this.can.amount > 0;
+      console.log(this.paymentMethodActive);
     }
   }
 
   onCashSubmit(event: number) {
-    let cashAmount = event;
+    const cashAmount = event;
     this.receivedCash = this.receivedCash + cashAmount;
-    // message, price: $XXX, received : $XXX
+
     if (this.receivedCash >= this.can.price) {
       this.soldedCansTotal = this.soldedCansTotal + 1;
       this.cashInTotal = this.cashInTotal + this.can.price;
 
       this.cashChange = this.receivedCash - this.can.price;
-      this.cashInputDisabled = true;
+      this.paymentMethodActive = false;
       this.receivedCash = 0;
 
       this.paymentDone.emit(this.can);
@@ -65,7 +67,8 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
   onCreditSubmit() {
     this.soldedCansTotal = this.soldedCansTotal + 1;
     this.creditInTotal = this.creditInTotal + this.can.price;
-    // message, price: $XXX, received : $XXX
+    this.paymentMethodActive = false;
+    
     this.paymentDone.emit();
   }
 
@@ -75,9 +78,28 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
   }
 
   getPaymentMethod() {
-    if (this.chosedPayment === "creditPayment") {
+    if (this.chosedPayment === 'creditPayment') {
       return this.chosedPayment;
     }
-    return "cashPayment";
+    return 'cashPayment';
+  }
+
+  restoreCans() {
+    this.initProps();
+    this.$restoreCansSubject.next('restore');
+  }
+
+  finishRestore() {
+    this.$restoreCansSubject.next('finish');
+  }
+
+  initProps() {
+    this.cashChange = 0;
+    this.receivedCash = 0;
+    this.cashInTotal = 0;
+    this.creditInTotal = 0;
+    this.soldedCansTotal = 0;
+    this.paymentMethodActive = false;
+    this.chosedPayment = '';
   }
 }

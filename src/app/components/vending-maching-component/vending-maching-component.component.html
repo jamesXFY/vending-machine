@@ -9,6 +9,7 @@
                     [can]="can"
                     (beChosed)="onChoose($event)"
                     [$successfulPayment]="$successfulPayment.asObservable()"
+                    [$restoreCansSubject]="$restoreCansSubject.asObservable()"
                   ></app-can-component>
             </div>
         </div>
@@ -17,6 +18,7 @@
     <div class="col-5">
       <app-control-panel-component
         [can]="selectedCan"
+        [$restoreCansSubject]="$restoreCansSubject"
         (paymentDone)="ejectCan($event)"
       ></app-control-panel-component>
     </div>

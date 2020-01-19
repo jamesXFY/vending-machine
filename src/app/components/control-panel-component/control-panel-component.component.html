@@ -1,5 +1,5 @@
 <div class="container">
-  <ng-container *ngTemplateOutlet="cashInputDisabled ? general : processing"></ng-container>
+  <ng-container *ngTemplateOutlet="paymentMethodActive ? processing  : general"></ng-container>
   <div class="row">
     <div class="col-12">
         <input type="radio" name="payment" id="cash" value="cashPayment" (click)="chosePaymentMethod($event)" checked>cash
@@ -16,8 +16,11 @@
   </div>
 
   <div class="row">
-      <div class="col-12">
-        Cancel
+      <div class="col-6" (click)='restoreCans()'>
+        Restore
+      </div>
+      <div class="col-6" (click)='finishRestore()'>
+        Finish Restore
       </div>
     </div>
 </div>
@@ -80,14 +83,14 @@
 
 <ng-template #cashPayment>
     <app-cash-component
-        [disabled]="cashInputDisabled"
+        [disabled]="!paymentMethodActive"
         (paymentProceeded)="onCashSubmit($event)"
       ></app-cash-component>
 </ng-template>
 
 <ng-template #creditPayment>
     <app-credit-component
-        [disabled]="cashInputDisabled"
+        [disabled]="!paymentMethodActive"
         (paymentProceeded)="onCreditSubmit()"
       ></app-credit-component>
 </ng-template>

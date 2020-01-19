@@ -1,7 +1,8 @@
 <div (click)="onClick()">
   <div class="col-12"><img [src]="'../../assets/imgs/' + can.icon" /></div>
   <div class="col-12">
-    <span>{{ can.type }}</span
-    ><span>{{ can.price }}</span>
+    <span>{{ can.type }}</span>
+    <span>{{ can.price }}</span>
+    <input #amountInput class="invisible" [value]="can.amount" (blur)="addCans($event)">
   </div>
 </div>

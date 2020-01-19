@@ -6,24 +6,23 @@ import { Component, OnInit, Renderer2, ViewChildren, QueryList, ElementRef, Outp
   styleUrls: ['./cash-component.component.scss']
 })
 export class CashComponentComponent implements OnInit {
-  private paymentAmount : number = 5;
+  private paymentAmount = 5;
 
-  @Input() disabled:boolean;
+  @Input() disabled: boolean;
 
-  @Output() paymentProceeded : EventEmitter<any> = new EventEmitter();
+  @Output() paymentProceeded: EventEmitter<any> = new EventEmitter();
 
-  @ViewChildren('.priceOption') priceOptions : QueryList<ElementRef>;
+  @ViewChildren('.priceOption') priceOptions: QueryList<ElementRef>;
 
-  constructor(private render:Renderer2) { }
+  constructor(private render: Renderer2) { }
 
   ngOnInit() {
   }
 
-  onClick(event){
-    if(this.disabled){
+  onClick(event) {
+    if (this.disabled) {
       return;
     }
-    console.log("abc");
     this.paymentAmount = parseFloat(event);
     this.paymentProceeded.emit(this.paymentAmount);
   }
