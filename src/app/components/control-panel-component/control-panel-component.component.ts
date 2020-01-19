@@ -1,48 +1,83 @@
-import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
-import { Can } from '../can-component/can';
+import {
+  Component,
+  OnInit,
+  Input,
+  Output,
+  EventEmitter,
+  OnChanges,
+  SimpleChanges,
+  ViewChild,
+  ElementRef,
+  ViewChildren,
+  QueryList
+} from "@angular/core";
+import { Can } from "../can-component/can";
 
 @Component({
-  selector: 'app-control-panel-component',
-  templateUrl: './control-panel-component.component.html',
-  styleUrls: ['./control-panel-component.component.scss']
+  selector: "app-control-panel-component",
+  templateUrl: "./control-panel-component.component.html",
+  styleUrls: ["./control-panel-component.component.scss"]
 })
 export class ControlPanelComponentComponent implements OnInit, OnChanges {
-  private cashChange:number = 0;
-  private receivedCash:number = 0;
+  public cashChange: number = 0;
+  public receivedCash: number = 0;
 
-  public cashInputDisabled : boolean = true;
-  public creditInputDisabled : boolean = true;
+  public cashInTotal: number = 0;
+  public creditInTotal: number = 0;
+  public soldedCansTotal: number = 0;
 
-  @Input() can:Can;
+  public cashInputDisabled: boolean = true;
+  public creditInputDisabled: boolean = true;
 
-  @Output() paymentDone:EventEmitter<Can> =new EventEmitter();
+  public chosedPayment: string = "";
 
-  constructor() { }
+  @Input() can: Can;
+
+  @Output() paymentDone: EventEmitter<Can> = new EventEmitter();
+
+  constructor() {}
 
   ngOnInit() {}
 
-  ngOnChanges(changes: SimpleChanges): void{
-    if(changes.hasOwnProperty('can') && !changes['can'].isFirstChange()){
-      this.cashInputDisabled = this.can.amount<=0;
-      this.creditInputDisabled = this.can.amount<=0;
+  ngOnChanges(changes: SimpleChanges): void {
+    if (changes.hasOwnProperty("can") && !changes["can"].isFirstChange()) {
+      this.cashInputDisabled = this.can.amount <= 0;
+      this.creditInputDisabled = this.can.amount <= 0;
     }
   }
 
-  onCashSubmit(event:number){
+  onCashSubmit(event: number) {
     let cashAmount = event;
     this.receivedCash = this.receivedCash + cashAmount;
     // message, price: $XXX, received : $XXX
-    if(this.receivedCash >= this.can.price){
+    if (this.receivedCash >= this.can.price) {
+      this.soldedCansTotal = this.soldedCansTotal + 1;
+      this.cashInTotal = this.cashInTotal + this.can.price;
+
       this.cashChange = this.receivedCash - this.can.price;
       this.cashInputDisabled = true;
       this.receivedCash = 0;
+
       this.paymentDone.emit(this.can);
     }
-    
   }
 
-  onCreditSubmit(){
+  onCreditSubmit() {
+    this.soldedCansTotal = this.soldedCansTotal + 1;
+    this.creditInTotal = this.creditInTotal + this.can.price;
     // message, price: $XXX, received : $XXX
     this.paymentDone.emit();
+  }
+
+  chosePaymentMethod($event) {
+    console.log($event.target.value);
+    this.chosedPayment = $event.target.value;
+  }
+
+  getPaymentMethod() {
+    if (this.chosedPayment === "creditPayment") {
+      return this.chosedPayment;
+    }
+    return "cashPayment";
   }
 }

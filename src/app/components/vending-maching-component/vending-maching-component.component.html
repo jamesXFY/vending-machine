@@ -1,6 +1,6 @@
 <div class="container">
   <div class="row vending-machine">
-    <div class="col-9">
+    <div class="col-7">
       <div class="container">
         <div class="row">
             <div class="col-sm-4" *ngFor="let can of cans">
@@ -14,7 +14,7 @@
         </div>
       </div>
     </div>
-    <div class="col-3">
+    <div class="col-5">
       <app-control-panel-component
         [can]="selectedCan"
         (paymentDone)="ejectCan($event)"

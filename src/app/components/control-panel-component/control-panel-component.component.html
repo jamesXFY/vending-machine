@@ -1,19 +1,12 @@
 <div class="container">
-  <div class="row">{{ can.type }} {{ can.price }} {{ can.amount }}</div>
+  <ng-container *ngTemplateOutlet="cashInputDisabled ? general : processing"></ng-container>
   <div class="row">
     <div class="col-12">
-      <app-cash-component
-        [disabled]="cashInputDisabled"
-        (paymentProceeded)="onCashSubmit($event)"
-      ></app-cash-component>
+        <input type="radio" name="payment" id="cash" value="cashPayment" (click)="chosePaymentMethod($event)" checked>cash
+        <input type="radio" name="payment" id="credit" value="creditPayment" (click)="chosePaymentMethod($event)">credit
     </div>
-  </div>
-  <div class="row">
     <div class="col-12">
-      <app-credit-component
-        [disabled]="cashInputDisabled"
-        (paymentProceeded)="onCreditSubmit()"
-      ></app-credit-component>
+        <ng-container *ngTemplateOutlet="getPaymentMethod() === 'cashPayment' ? cashPayment : creditPayment"></ng-container>
     </div>
   </div>
   <div class="row">
@@ -21,4 +14,80 @@
       {{ cashChange }}
     </div>
   </div>
+
+  <div class="row">
+      <div class="col-12">
+        Cancel
+      </div>
+    </div>
 </div>
+
+<ng-template #general>
+  <div class="row">
+    <div class="col-6">
+      <div>Sold Cans In Total :</div>
+    </div>
+    <div class="col-6">
+      <div>{{ soldedCansTotal }}</div>
+    </div>
+
+    <div class="col-6">
+      <div>Cash Paid:</div>
+    </div>
+    <div class="col-6">
+      <div>{{ cashInTotal | currency }}</div>
+    </div>
+
+    <div class="col-6">
+      <div>Credit Paid:</div>
+    </div>
+    <div class="col-6">
+      <div>{{ creditInTotal | currency }}</div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #processing>
+  <div class="row">
+    <div class="row">
+      <div class="col-6">
+        <div>Can Selected :</div>
+      </div>
+      <div class="col-6">
+        <div>{{ can.type }}</div>
+      </div>
+
+      <div class="col-6">
+        <div>Price:</div>
+      </div>
+      <div class="col-6">
+        <div>{{ can.price | currency }}</div>
+      </div>
+
+      <div class="col-6">
+        <div>received:</div>
+      </div>
+      <div class="col-6">
+        <div>{{ receivedCash | currency }}</div>
+      </div>
+    </div>
+  </div>
+</ng-template>
+
+<ng-template #paymentMethod>
+    
+</ng-template>
+
+<ng-template #cashPayment>
+    <app-cash-component
+        [disabled]="cashInputDisabled"
+        (paymentProceeded)="onCashSubmit($event)"
+      ></app-cash-component>
+</ng-template>
+
+<ng-template #creditPayment>
+    <app-credit-component
+        [disabled]="cashInputDisabled"
+        (paymentProceeded)="onCreditSubmit()"
+      ></app-credit-component>
+</ng-template>
