@@ -57,7 +57,7 @@ export class CanComponentComponent implements OnInit, AfterViewInit {
       return;
     }
     this.clickAble = true;
-    this.can.amount = event.target.value;
+    this.can.amount = parseInt(event.target.value, 10);
   }
 
   restoreCans() {
