@@ -1,4 +1,4 @@
-import { Component, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Output, EventEmitter, Input } from '@angular/core';
 
 @Component({
   selector: 'app-credit-component',
@@ -6,6 +6,8 @@ import { Component, OnInit, Output, EventEmitter } from '@angular/core';
   styleUrls: ['./credit-component.component.scss']
 })
 export class CreditComponentComponent implements OnInit {
+
+  @Input() disabled:boolean;
 
   @Output() paymentProceeded : EventEmitter<any> = new EventEmitter();
 

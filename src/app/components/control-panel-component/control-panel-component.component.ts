@@ -1,4 +1,4 @@
-import { Component, OnInit, Input, Output, EventEmitter } from '@angular/core';
+import { Component, OnInit, Input, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { Can } from '../can-component/can';
 
 @Component({
@@ -6,8 +6,9 @@ import { Can } from '../can-component/can';
   templateUrl: './control-panel-component.component.html',
   styleUrls: ['./control-panel-component.component.scss']
 })
-export class ControlPanelComponentComponent implements OnInit {
-  private change:number = 0;
+export class ControlPanelComponentComponent implements OnInit, OnChanges {
+  private cashChange:number = 0;
+  private receivedCash:number = 0;
 
   public cashInputDisabled : boolean = true;
   public creditInputDisabled : boolean = true;
@@ -18,14 +19,23 @@ export class ControlPanelComponentComponent implements OnInit {
 
   constructor() { }
 
-  ngOnInit() {
+  ngOnInit() {}
+
+  ngOnChanges(changes: SimpleChanges): void{
+    if(changes.hasOwnProperty('can') && !changes['can'].isFirstChange()){
+      this.cashInputDisabled = this.can.amount<=0;
+      this.creditInputDisabled = this.can.amount<=0;
+    }
   }
 
   onCashSubmit(event:number){
     let cashAmount = event;
+    this.receivedCash = this.receivedCash + cashAmount;
     // message, price: $XXX, received : $XXX
-    if(cashAmount >= this.can.price){
-      this.change = cashAmount - this.can.price;
+    if(this.receivedCash >= this.can.price){
+      this.cashChange = this.receivedCash - this.can.price;
+      this.cashInputDisabled = true;
+      this.receivedCash = 0;
       this.paymentDone.emit(this.can);
     }
     

@@ -23,7 +23,8 @@ export class CashComponentComponent implements OnInit {
     if(this.disabled){
       return;
     }
-    this.paymentAmount =parseFloat(event.target.value);
+    console.log("abc");
+    this.paymentAmount = parseFloat(event);
     this.paymentProceeded.emit(this.paymentAmount);
   }
 

@@ -1,4 +1,7 @@
-<div class=row [click]="">
-    <div class="col-12"><img [src]='can.icon'></img></div>
-    <div class="col-12"><span>{{can.type}}</span><span>{{can.price}}</span></div>
-</div> 
+<div (click)="onClick()">
+  <div class="col-12"><img [src]="'../../assets/imgs/' + can.icon" /></div>
+  <div class="col-12">
+    <span>{{ can.type }}</span
+    ><span>{{ can.price }}</span>
+  </div>
+</div>
