@@ -59,4 +59,25 @@ fdescribe('VendingMachingComponentComponent', () => {
     component.ejectCan();
     expect(paymentSpy).toHaveBeenCalledWith(can);
   });
+
+  it('available can in total should be correct', () => {
+    component.cans = [];
+    const can1: Can = {
+      type: 'test4',
+      name: 'test4',
+      price: 12.33,
+      amount: 10,
+      icon: 'icon (5).svg'
+    };
+    const can2: Can = {
+      type: 'test4',
+      name: 'test4',
+      price: 12.33,
+      amount: 21,
+      icon: 'icon (5).svg'
+    };
+    component.cans.push(can1);
+    component.cans.push(can2);
+    expect(component.fetchAllCansAmount()).toEqual(31);
+  });
 });

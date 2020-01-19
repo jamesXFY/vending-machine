@@ -33,6 +33,7 @@ export class ControlPanelComponentComponent implements OnInit, OnChanges {
   public chosedPayment = 'cashPayment';
 
   @Input() can: Can;
+  @Input() amountTotal: number;
   @Input() $restoreCansSubject: Subject<string>;
 
   @Output() paymentDone: EventEmitter<Can> = new EventEmitter();

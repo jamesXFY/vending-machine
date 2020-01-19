@@ -22,7 +22,7 @@ describe('CreditComponentComponent', () => {
   });
 
   it('submit should be trigger by disable', () => {
-    const submitSpy = spyOn(component.paymentProceeded,'emit');
+    const submitSpy = spyOn(component.paymentProceeded, 'emit');
     component.disabled = true;
     component.onSubmit();
     expect(submitSpy).not.toHaveBeenCalled();

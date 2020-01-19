@@ -21,6 +21,7 @@
           <app-control-panel-component
             [can]="selectedCan"
             [$restoreCansSubject]="$restoreCansSubject"
+            [amountTotal]="fetchAllCansAmount()"
             (paymentDone)="ejectCan()"
           ></app-control-panel-component>
         </div>

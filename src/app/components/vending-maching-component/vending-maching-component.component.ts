@@ -74,4 +74,12 @@ export class VendingMachingComponentComponent implements OnInit {
   ejectCan() {
     this.$successfulPayment.next(this.selectedCan);
   }
+
+  fetchAllCansAmount() {
+    let amountTotal = 0;
+    this.cans.forEach((can: Can) => {
+      amountTotal = amountTotal + can.amount;
+    });
+    return amountTotal;
+  }
 }
